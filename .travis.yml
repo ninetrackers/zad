@@ -1,6 +1,10 @@
+sudo: required
 language: c
 c:
   - "latest"
+
+before_install:
+  - sudo apt install -qq youtube-dl
 
 script:
   - wget -q https://github.com/fabianonline/telegram.sh/raw/master/telegram && chmod +x telegram
