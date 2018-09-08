@@ -49,6 +49,11 @@ else
     echo "No new lectures!"
 fi
 
+if [ -s dl_links ]
+then
+#YT
+cat dl_links | while read line; do url=$(echo $line | cut -d '"' -f2); youtube-dl -f 17 $url --ignore-errors; done
+
 #Telegram
 cat dl_links | while read line; do
 	subject=$(echo $line | cut -d = -f1)
@@ -61,7 +66,12 @@ cat dl_links | while read line; do
 	*المشاهدة*: [هنا]($link)
 	"
 done
+for file in *.3gp; do ./telegram -t $BOTTOKEN -c -1001160410225 -f $file; done
 
 #Push
 git add subjects_db; git -c "user.name=Travis CI" -c "user.email=builds@travis-ci.com" commit -m "Sync: $(date +%d.%m.%Y)"
 git push -q https://$GIT_OAUTH_TOKEN@github.com/ninetrackers/zad.git HEAD:yt
+
+else
+    echo "Nothing to do!"
+fi
