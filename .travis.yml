@@ -9,12 +9,9 @@ before_install:
   - docker pull vimagick/youtube-dl
 
 script:
-  - |
-    docker run --rm -i -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) -v "$(pwd):/home/:rw,z" vimagick/youtube-dl bash << EOF
-    cd zad; wget -q https://github.com/yshalsager/telegram.sh/raw/master/telegram && chmod +x telegram
-    chmod +x *.sh && ./script.sh 
-    exit
-    EOF
+  - wget -q https://github.com/yshalsager/telegram.sh/raw/master/telegram && chmod +x telegram
+  - chmod +x *.sh
+  - ./script.sh 
 
 notifications:
   email:
