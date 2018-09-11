@@ -1,10 +1,10 @@
 sudo: required
-language: c
-c:
-  - "latest"
+language: python
+python:
+  - "3.6"
 
 before_install:
-  - sudo apt-get install -q youtube-dl ca-certificates
+  - sudo apt-get install -q youtube-dl
 
 script:
   - wget -q https://github.com/fabianonline/telegram.sh/raw/master/telegram && chmod +x telegram
