@@ -51,7 +51,7 @@ fi
 if [ -s dl_links ]
 then
 #YT
-cat dl_links | while read line; do url=$(echo $line | cut -d '"' -f2); docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl -f 17 $url; done
+cat dl_links | while read line; do url=$(echo $line | cut -d '"' -f2); docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl --external-downloader aria2c -f 17 $url --external-downloader-args "-x16 -j10"; done
 
 #Telegram
 cat dl_links | while read line; do
