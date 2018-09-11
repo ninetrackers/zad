@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - git clone ninetrackers/zad -b yt zad/
+  - git clone https://github.com/ninetrackers/zad.git -b yt zad/
   # Pull docker images
   - docker pull vimagick/youtube-dl
 
