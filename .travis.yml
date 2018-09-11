@@ -1,15 +1,20 @@
 sudo: required
-language: python
-python:
-  - "3.6"
+
+services:
+  - docker
 
 before_install:
-  - sudo apt-get install -q youtube-dl
+  - git clone ninetrackers/zad -b yt zad/
+  # Pull docker images
+  - docker pull vimagick/youtube-dl
 
 script:
-  - wget -q https://github.com/fabianonline/telegram.sh/raw/master/telegram && chmod +x telegram
-  - chmod +x *.sh
-  - ./script.sh 
+  - |
+    docker run --rm -i -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) -v "$(pwd):/home/:rw,z" vimagick/youtube-dl bash << EOF
+    cd zad; wget -q https://github.com/yshalsager/telegram.sh/raw/master/telegram && chmod +x telegram
+    chmod +x *.sh && ./script.sh 
+    exit
+    EOF
 
 notifications:
   email:
