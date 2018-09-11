@@ -1,7 +1,6 @@
 #Cleanup
 rm raw_out compare changes updates dl_links 2> /dev/null
 
-
 #Check if db exist
 if [ -e subjects_db ]
 then
@@ -51,8 +50,6 @@ fi
 
 if [ -s dl_links ]
 then
-#YT
-cat dl_links | while read line; do url=$(echo $line | cut -d '"' -f2); youtube-dl -f 17 $url --ignore-errors; done
 
 #Telegram
 cat dl_links | while read line; do
@@ -66,7 +63,7 @@ cat dl_links | while read line; do
 	*المشاهدة*: [هنا]($link)
 	"
 done
-for file in *.3gp; do ./telegram -t $BOTTOKEN -c -1001160410225 -f $file; done
+ulrs=$(cat dl_links | cut -d '"' -f2); ./telegram -t $BOTTOKEN -c -1001160410225 -M "$urls"
 
 #Push
 git add subjects_db; git -c "user.name=Travis CI" -c "user.email=builds@travis-ci.com" commit -m "Sync: $(date +%d.%m.%Y)"
