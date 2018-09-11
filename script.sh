@@ -1,7 +1,6 @@
 #Cleanup
 rm raw_out compare changes updates dl_links 2> /dev/null
 
-
 #Check if db exist
 if [ -e subjects_db ]
 then
@@ -52,7 +51,8 @@ fi
 if [ -s dl_links ]
 then
 #YT
-cat dl_links | while read line; do url=$(echo $line | cut -d '"' -f2); youtube-dl -f 17 $url --ignore-errors; done
+alias yt='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
+cat dl_links | while read line; do url=$(echo $line | cut -d '"' -f2); yt -f 17 $url; done
 
 #Telegram
 cat dl_links | while read line; do
