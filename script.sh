@@ -51,8 +51,7 @@ fi
 if [ -s dl_links ]
 then
 #YT
-alias yt='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
-cat dl_links | while read line; do url=$(echo $line | cut -d '"' -f2); yt -f 17 $url; done
+cat dl_links | while read line; do url=$(echo $line | cut -d '"' -f2); docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl -f 17 $url; done
 
 #Telegram
 cat dl_links | while read line; do
